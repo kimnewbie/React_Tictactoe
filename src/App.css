@@ -1,0 +1,41 @@
+body, html{
+  height: 100vh;
+  background-color: #444;
+}
+.wrap{
+  width: 300px;
+  margin:0 auto;
+}
+.turn{
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 34px;
+}
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width:300px;
+  height:300px;
+}
+.winnerBox{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background: rgba(50,50,50,0.5);
+  z-index: 100;
+}
+.winnerBox > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+.winnerBox >div >button{
+  margin-top: 10px;
+}
