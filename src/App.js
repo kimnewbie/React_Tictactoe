@@ -3,6 +3,7 @@ import Counter from './pages/Counter';
 import Hello from './pages/Hello';
 import InputSample from './pages/InputSample';
 import TicTacToe from './pages/TicTacToe';
+import UserList from './pages/UserList';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <Hello />
       <Hello /> */}
       {/* <Counter /> */}
-      <InputSample />
+      {/* <InputSample /> */}
+      <UserList />
     </div>
   );
 }
