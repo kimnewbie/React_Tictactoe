@@ -52,6 +52,10 @@ const AppPage = () => {
         nextId.current += 1;
     };
 
+    const onRemove = id => {
+        setUsers(users.filter(user => user.id !== id));
+    };
+
     return (
         <>
             <CreateUser
@@ -60,7 +64,7 @@ const AppPage = () => {
                 onChange={onChange}
                 onCreate={onCreate}
             />
-            <UserList users={users} />
+            <UserList users={users} onRemove={onRemove} />
         </>
     );
 }
