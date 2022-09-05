@@ -7,7 +7,7 @@ const initialValue = Array.from(new Array(9), () => "");
 function App() {
   const [turn, setTurn] = useState('X');
   const [boxes, setBoxes] = useState([...initialValue]);
-  // const [boxes, setBoxes] = useState(Array.from({ length: 9 }, () => Array(9).fill("")));
+  // const [boxes, setBoxes] = useState(new Array(9).fill(""));
   const [winner, setWinner] = useState(''); // 위너
 
   const patterns = [
