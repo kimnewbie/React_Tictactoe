@@ -1,6 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import CreateUser from './CreateUser';
 import UserList from './UserList';
+
+const countActiveUsers = (users) => {
+    console.log('활성 사용자 수를 세는중...');
+    return users.filter(user => user.active).length;
+}
 
 const AppPage = () => {
     const [inputs, setInputs] = useState({
@@ -8,13 +13,7 @@ const AppPage = () => {
         email: ''
     });
     const { username, email } = inputs;
-    const onChange = e => {
-        const { name, value } = e.target;
-        setInputs({
-            ...inputs,
-            [name]: value
-        });
-    };
+
     const [users, setUsers] = useState([
         {
             id: 1,
@@ -35,6 +34,18 @@ const AppPage = () => {
             active: false
         }
     ]);
+
+    // const count = countActiveUsers(users);
+    const count = useMemo(() => countActiveUsers(users), [users]);
+
+    const onChange = e => {
+        const { name, value } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
+    };
+
 
     const nextId = useRef(4);
 
@@ -77,6 +88,7 @@ const AppPage = () => {
                 onCreate={onCreate}
             />
             <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
+            <div>활성사용자 수 : {count}</div>
         </>
     );
 }
