@@ -35,7 +35,7 @@ const AppPage = () => {
         }
     ]);
 
-    // const count = countActiveUsers(users);
+    // const count = countActiveUsers(users); // 인풋이 바껴도 렌더링 되므로 useMemo 사용
     const count = useMemo(() => countActiveUsers(users), [users]);
 
     const onChange = e => {
