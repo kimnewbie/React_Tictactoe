@@ -9,6 +9,7 @@ const CreateUser = () => {
     });
 
     const nextId = useRef(4);
+
     const dispatch = useContext(UserDispatch);
 
     const onCreate = () => {
