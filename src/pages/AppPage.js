@@ -9,10 +9,6 @@ const countActiveUsers = (users) => {
 }
 
 const initialState = {
-    inputs: {
-        username: '',
-        email: ''
-    },
     users: [
         {
             id: 1,
@@ -59,17 +55,20 @@ const reducer = (state, action) => {
     }
 }
 
+// UserDispatch 라는 이름으로 내보내줍니다.
+export const UserDispatch = React.createContext(null);
+
 const AppPage = () => {
+    const [{ username, email }, onChange, onReset] = useInputs({
+        username: '',
+        email: ''
+    });
+
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const nextId = useRef(4);
 
     const { users } = state;
-
-    const [{ username, email }, onChange, reset] = useInputs({
-        username: '',
-        email: ''
-    });
 
     const onCreate = useCallback(() => {
         dispatch({
@@ -80,23 +79,9 @@ const AppPage = () => {
                 email
             }
         });
-        reset();
+        onReset();
         nextId.current += 1;
-    }, [username, email, reset]);
-
-    const onToggle = useCallback(id => {
-        dispatch({
-            type: 'TOGGLE_USER',
-            id
-        });
-    }, []);
-
-    const onRemove = useCallback(id => {
-        dispatch({
-            type: 'REMOVE_USER',
-            id
-        });
-    }, []);
+    }, [username, email, onReset]);
 
     const count = useMemo(() => countActiveUsers(users), [users]);
 
@@ -110,8 +95,6 @@ const AppPage = () => {
             />
             <UserList
                 users={users}
-                onToggle={onToggle}
-                onRemove={onRemove}
             />
             <div>활성사용자 수 : {count}</div>
         </>
