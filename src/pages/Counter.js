@@ -1,23 +1,34 @@
-import React, { useState } from 'react'
+import React, { useReducer, useState } from 'react'
+
+const style = {
+    background: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px 0',
+}
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return state + 1;
+        case 'DECREMENT':
+            return state - 1;
+        default:
+            return state;
+    };
+}
 
 const Counter = () => {
-    const style = {
-        background: '#fff',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '20px 0',
-    }
-
-    const [number, setNumber] = useState(0);
+    const [number, dispatch] = useReducer(reducer, 0);
 
     const onClickIncrease = () => {
-        setNumber(prevNumber => prevNumber + 1);
-    }
+        dispatch({ type: 'INCREMENT' });
+    };
 
     const onClickDecrease = () => {
-        setNumber(prevNumber => prevNumber - 1);
-    }
+        dispatch({ type: 'DECREMENT' });
+    };
 
     return (
         <div style={style}>

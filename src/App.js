@@ -13,9 +13,9 @@ function App() {
       {/* <Hello />
       <Hello />
       <Hello /> */}
-      {/* <Counter /> */}
+      <Counter />
       {/* <InputSample /> */}
-      <AppPage />
+      {/* <AppPage /> */}
     </div>
   );
 }
