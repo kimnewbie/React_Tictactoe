@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useReducer, useRef, useState } from 'react';
+import useInputs from '../utils/useInputs';
 import CreateUser from './CreateUser';
 import UserList from './UserList';
 
@@ -36,14 +37,6 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'CHANGE_INPUT':
-            return {
-                ...state,
-                inputs: {
-                    ...state.inputs,
-                    [action.name]: action.value
-                }
-            };
         case 'CREATE_USER':
             return {
                 inputs: initialState.inputs,
@@ -72,16 +65,11 @@ const AppPage = () => {
     const nextId = useRef(4);
 
     const { users } = state;
-    const { username, email } = state.inputs;
 
-    const onChange = useCallback(e => {
-        const { name, value } = e.target;
-        dispatch({
-            type: 'CHANGE_INPUT',
-            name,
-            value
-        });
-    }, []);
+    const [{ username, email }, onChange, reset] = useInputs({
+        username: '',
+        email: ''
+    });
 
     const onCreate = useCallback(() => {
         dispatch({
@@ -92,8 +80,9 @@ const AppPage = () => {
                 email
             }
         });
+        reset();
         nextId.current += 1;
-    }, [username, email]);
+    }, [username, email, reset]);
 
     const onToggle = useCallback(id => {
         dispatch({
