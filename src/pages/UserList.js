@@ -12,8 +12,7 @@ const User = React.memo(function User({ user }) {
                     color: user.active ? 'green' : 'black'
                 }}
                 onClick={() => dispatch({
-                    type: 'TOGGLE_USER',
-                    id: user.id
+                    type: 'TOGGLE_USER', id: user.id
                 })}
             >
                 {user.username}

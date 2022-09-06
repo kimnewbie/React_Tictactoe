@@ -59,45 +59,18 @@ const reducer = (state, action) => {
 export const UserDispatch = React.createContext(null);
 
 const AppPage = () => {
-    const [{ username, email }, onChange, onReset] = useInputs({
-        username: '',
-        email: ''
-    });
-
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const nextId = useRef(4);
-
     const { users } = state;
-
-    const onCreate = useCallback(() => {
-        dispatch({
-            type: 'CREATE_USER',
-            user: {
-                id: nextId.current,
-                username,
-                email
-            }
-        });
-        onReset();
-        nextId.current += 1;
-    }, [username, email, onReset]);
 
     const count = useMemo(() => countActiveUsers(users), [users]);
 
     return (
-        <>
-            <CreateUser
-                username={username}
-                email={email}
-                onChange={onChange}
-                onCreate={onCreate}
-            />
-            <UserList
-                users={users}
-            />
+        <UserDispatch.Provider value={dispatch}>
+            <CreateUser />
+            <UserList users={users} />
             <div>활성사용자 수 : {count}</div>
-        </>
+        </UserDispatch.Provider>
     );
 }
 
