@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useReducer, useState } from 'react';
-import useAsync from './useAsync';
+import React, { useState } from 'react';
+// import useAsync from './useAsync';
+import { useAsync } from 'react-async';
 import User from './User';
 
 
-const getUsers = async (id) => {
+const getUsers = async () => {
     const response = await axios.get(
         // 'https://jsonplaceholder.typicode.com/users/showmeerror' // error test
         `https://jsonplaceholder.typicode.com/users`
@@ -14,13 +15,14 @@ const getUsers = async (id) => {
 
 const Users = () => {
     const [userId, setUserId] = useState(null);
-    const [state, refetch] = useAsync(getUsers, [], true);
 
-    const { loading, data: users, error } = state; // state.data 를 users 키워드로 조회
+    const { data: users, error, isLoading, run } = useAsync({
+        deferFn: getUsers
+    });
 
-    if (loading) return <div>로딩중..</div>;
+    if (isLoading) return <div>로딩중..</div>;
     if (error) return <div>에러가 발생했습니다</div>;
-    if (!users) return <button onClick={refetch}>불러오기</button>;
+    if (!users) return <button onClick={run}>불러오기</button>;
 
     return (
         <>
@@ -35,7 +37,7 @@ const Users = () => {
                     </li>
                 ))}
             </ul>
-            <button onClick={refetch}>다시 불러오기</button>
+            <button onClick={run}>다시 불러오기</button>
             {userId && <User id={userId} />}
         </>
     );

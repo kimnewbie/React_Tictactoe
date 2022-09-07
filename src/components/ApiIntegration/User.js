@@ -3,7 +3,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import useAsync from './useAsync';
 
 
-const getUsers = async (id) => {
+const getUsers = async ({ id }) => {
     const response = await axios.get(
         // 'https://jsonplaceholder.typicode.com/users/showmeerror' // error test
         `https://jsonplaceholder.typicode.com/users/${id}`
@@ -12,12 +12,13 @@ const getUsers = async (id) => {
 }
 
 const User = ({ id }) => {
-    // const [state, refetch] = useAsync(getUser, [], true);
-    const [state] = useAsync(() => getUsers(id), [id]);
+    const { data: user, error, isLoading } = useAsync({
+        promiseFn: getUsers,
+        id,
+        watch: id
+    });
 
-    const { loading, data: user, error } = state;
-
-    if (loading) return <div>로딩중..</div>;
+    if (isLoading) return <div>로딩중..</div>;
     if (error) return <div>에러가 발생했습니다</div>;
     if (!user) return null;
 
