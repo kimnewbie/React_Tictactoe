@@ -2,7 +2,7 @@ body,
 html {
   height: 100vh;
   /* background-color: #444; */
-  text-align: center;
+  /* text-align: center; */
 }
 .wrap {
   width: 300px;
