@@ -56,7 +56,7 @@ const reducer = (state, action) => {
 // UserDispatch 라는 이름으로 내보내줍니다.
 export const UserDispatch = React.createContext(null);
 
-const AppPage = () => {
+const UserApp = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const { users } = state;
@@ -72,4 +72,4 @@ const AppPage = () => {
     );
 }
 
-export default AppPage;
+export default UserApp;
