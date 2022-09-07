@@ -27,13 +27,17 @@ const TodoHeadBlock = styled.div`
 `;
 
 const TodoHead = () => {
+  const moment = require('moment');
+  const today = moment();
+  const day = today.format('dddd');
+
   const todos = useTodoState();
   const undoneTasks = todos.filter(todo => !todo.done);
 
   return (
     <TodoHeadBlock>
-      <h1>2022년 9월 20일</h1>
-      <div className='day'>수요일</div>
+      <h1>{today.format("YYYY년 MM월 DD일")}</h1>
+      <div className='day'>{day}</div>
       <div className='tasks-left'>할 일 {undoneTasks.length}개 남음</div>
     </TodoHeadBlock>
   )
