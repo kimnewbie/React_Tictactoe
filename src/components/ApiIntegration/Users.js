@@ -6,24 +6,26 @@ const Users = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                // 요청이 시작 할 때에는 error와 users를 초기화하고
-                setError(null);
-                setUsers(null);
-                // loading 상태를 true로 바꾼다.
-                setLoading(true);
+    const fetchUsers = async () => {
+        try {
+            // 요청이 시작 할 때에는 error와 users를 초기화하고
+            setError(null);
+            setUsers(null);
+            // loading 상태를 true로 바꾼다.
+            setLoading(true);
 
-                const response = await axios.get(
-                    'https://jsonplaceholder.typicode.com/users'
-                );
-                setUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
-            } catch (e) {
-                setError(e);
-            }
-            setLoading(false);
+            const response = await axios.get(
+                // 'https://jsonplaceholder.typicode.com/users/showmeerror' // error test
+                'https://jsonplaceholder.typicode.com/users'
+            );
+            setUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
+        } catch (e) {
+            setError(e);
         }
+        setLoading(false);
+    }
+
+    useEffect(() => {
         fetchUsers();
     }, []);
 
